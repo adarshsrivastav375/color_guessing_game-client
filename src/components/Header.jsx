@@ -1,8 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png"
 import { CiWallet } from "react-icons/ci";
-export default function Header() {
-    let currentUser = true;
+// eslint-disable-next-line react/prop-types
+export default function Header({ currentUser }) {
+    console.log(currentUser)
+
     return (
         <header className="shadow sticky z-50 top-0">
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">

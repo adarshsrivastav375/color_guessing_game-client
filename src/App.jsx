@@ -29,9 +29,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <ProtectedRout>
-        <Layout />
-      </ProtectedRout>,
+      element: <Layout currentUser={currentUser} />,
       children: [
         {
           path: "/",
@@ -40,11 +38,15 @@ function App() {
 
         {
           path: 'profile',
-          element: <Profile currentUser={currentUser} />
+          element: <ProtectedRout>
+            <Profile currentUser={currentUser} />
+          </ProtectedRout>
         },
         {
           path: "/contest",
-          element: <Contest currentUser={currentUser} />,
+          element: <ProtectedRout>
+            <Contest currentUser={currentUser} />
+          </ProtectedRout>,
           children: [
             {
               path: "/contest",
