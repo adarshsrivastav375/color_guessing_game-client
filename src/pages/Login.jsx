@@ -1,7 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import logo from "../assets/logo.png"
+import axios from "axios";
+import { useState } from "react";
+
+
 
 const Login = () => {
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    
+    const loginHandler = async (e) => {
+        e.preventDefault()
+        const data = {
+            email,
+            password
+        };
+        try {
+            const response = await axios.post('http://localhost:6009/api/v1/users/login', data)
+            console.log(response);
+            console.log(response.data.data.success)
+            if (response.data.data.success) {
+                console.log(response.data.data.id)
+                redirect("/")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+     
+    }
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -23,10 +50,12 @@ const Login = () => {
                         </label>
                         <div className="mt-2">
                             <input
-                                id="email"
+
                                 name="email"
                                 type="email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -38,17 +67,14 @@ const Login = () => {
                             <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                                 Password
                             </label>
-                            <div className="text-sm">
-                                <a href="#" className="font-semibold text-orange-700 hover:text-orange-600">
-                                    Forgot password?
-                                </a>
-                            </div>
                         </div>
                         <div className="mt-2">
                             <input
-                                id="password"
+
                                 name="password"
                                 type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 autoComplete="current-password"
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -58,6 +84,7 @@ const Login = () => {
 
                     <div>
                         <button
+                            onClick={loginHandler}
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-orange-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >

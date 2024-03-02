@@ -9,6 +9,9 @@ import Parity from "./components/Parity";
 import Bcon from "./components/Bcon";
 import Sapre from "./components/Sapre";
 import Emred from "./components/Emred";
+import Details from "./pages/profile/Details";
+import Recharge from "./pages/profile/Recharge";
+import Withdraw from "./pages/profile/Withdraw";
 
 import {
   createBrowserRouter,
@@ -37,10 +40,30 @@ function App() {
         },
 
         {
-          path: 'profile',
+          path: '/profile',
           element: <ProtectedRout>
             <Profile currentUser={currentUser} />
-          </ProtectedRout>
+          </ProtectedRout>,
+          children: [
+            {
+              path: "/profile",
+              element: <Details currentUser={currentUser} />
+            },
+            {
+              path: "/profile/recharge",
+              element: <Recharge currentUser={currentUser} />
+            },
+            {
+              path: "/profile/withdraw",
+              element: <Withdraw currentUser={currentUser} />
+            },
+            {
+              path: "/profile/recharge",
+              element: <Recharge currentUser={currentUser} />
+            },
+
+          ]
+
         },
         {
           path: "/contest",
