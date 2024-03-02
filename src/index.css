@@ -3,3 +3,8 @@
 @tailwind utilities;
 
 
+.page-active {
+    background-color: rgb(194 65 12 / var(--tw-text-opacity)) !important;
+    font-weight: bold;
+    color: #fff !important;
+}
