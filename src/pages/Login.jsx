@@ -1,15 +1,15 @@
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.png"
 import axios from "axios";
 import { useState } from "react";
-
-
+import { httpAuth } from "..";
 
 const Login = () => {
+    const navigateTo = useNavigate();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
-    
+
     const loginHandler = async (e) => {
         e.preventDefault()
         const data = {
@@ -18,16 +18,16 @@ const Login = () => {
         };
         try {
             const response = await axios.post('http://localhost:6009/api/v1/users/login', data)
-            console.log(response);
-            console.log(response.data.data.success)
-            if (response.data.data.success) {
-                console.log(response.data.data.id)
-                redirect("/")
+            if (response.data.success) {
+                localStorage.setItem('accessToken',await response.data.data.accessToken);
+                localStorage.setItem('refreshToken',await response.data.data.refreshToken);
+                httpAuth.defaults.headers["Authorization"] = JSON.stringify(response.data.data.accessToken);
+                navigateTo("/");
             }
         } catch (error) {
             console.log(error)
         }
-     
+
     }
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">

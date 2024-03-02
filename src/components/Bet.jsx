@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useState } from "react";
 import Modal from "react-modal";
+import { httpAuth } from "..";
 const customStyles = {
     overlay: {
         backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent black overlay
@@ -39,9 +40,8 @@ const Bet = ({ game, callback }) => {
     const handleConfirm = async () => {
         const payload = {
             amount, color, gameId: game._id,
-            userId: "65e2e228f2464ec5415b321b"
         }
-        const response = await axios.post('http://localhost:6009/api/v1/game', payload)
+        await httpAuth.post('/api/v1/game', payload)
         callback()
         // Close the modal
         closeModal();

@@ -3,7 +3,7 @@ import ActiveContest from "./ActiveContest";
 import Bet from "./Bet";
 import Table from "./Table";
 import Table2 from "./Table2";
-import axios from "axios";
+import { httpAuth } from "..";
 
 function Parity() {
   const [game, setGame] = useState({}); // Initialize state with null or an initial value
@@ -18,7 +18,7 @@ function Parity() {
 
   const getActiveGame = async () => {
     try {
-      const response = await axios.get("http://localhost:6009/api/v1/game", {
+      const response = await httpAuth.get("/api/v1/game", {
         params: { gameType: "Parity" },
       });
       setGame(response.data.data);
@@ -29,11 +29,11 @@ function Parity() {
   const getBets = async (pageNumber = 1) => {
     try {
       const payload = {
-        id: "65e2e228f2464ec5415b321b",
         limit: 10,
-        pageNumber: pageNumber
+        pageNumber: pageNumber,
+        gameType:"Parity"
       }
-      const response = await axios.get("http://localhost:6009/api/v1/game/bet", {
+      const response = await httpAuth.get("/api/v1/game/bet", {
         params: payload
       });
       setBets(await response.data.data.bets);
@@ -51,7 +51,7 @@ function Parity() {
         limit: 10,
         pageNumber: pageNumber
       }
-      const response = await axios.get("http://localhost:6009/api/v1/game/contast", {
+      const response = await httpAuth.get("/api/v1/game/contast", {
         params: payload
       });
       setContasts(await response.data.data.contasts);
