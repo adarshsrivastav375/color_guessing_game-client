@@ -6,15 +6,15 @@ import Table2 from "./Table2";
 import { httpAuth } from "..";
 
 function Bcone() {
-  const [game, setGame] = useState({}); // Initialize state with null or an initial value
-  const [bets, setBets] = useState([]); // Initialize state with null or an initial value
-  const [contasts, setContasts] = useState([]); // Initialize state with null or an initial value
-  const [newKey, setKey] = useState(0); // Initialize state with null or an initial value
-  const [newKey2, setKey2] = useState(11111111); // Initialize state with null or an initial value
-  const [pagination, setPagination] = useState([]); // Initialize state with null or an initial value
-  const [pagination2, setPagination2] = useState([]); // Initialize state with null or an initial value
-  const [currentPage, setCurrentPage] = useState(1); // Initialize state with null or an initial value
-  const [currentPage2, setCurrentPage2] = useState(1); // Initialize state with null or an initial value
+  const [game, setGame] = useState({});
+  const [bets, setBets] = useState([]);
+  const [contasts, setContasts] = useState([]);
+  const [newKey, setKey] = useState(0);
+  const [newKey2, setKey2] = useState();
+  const [pagination, setPagination] = useState([]);
+  const [pagination2, setPagination2] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage2, setCurrentPage2] = useState(1);
 
   const getActiveGame = async () => {
     try {
@@ -31,7 +31,7 @@ function Bcone() {
       const payload = {
         limit: 10,
         pageNumber: pageNumber,
-        gameType:"Bcone"
+        gameType: "Bcone"
       }
       const response = await httpAuth.get("/api/v1/game/bet", {
         params: payload

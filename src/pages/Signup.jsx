@@ -1,41 +1,44 @@
 import logo from "../assets/logo.png"
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 
 
 
 const Signup = () => {
-    const [name, setName] = useState("")
-    const [email, setEmail] = useState("")
-    const [mobile, setMobile] = useState("")
-    const [refreferralBy, setReferralBy] = useState("")
-    const [password, setPassword] = useState("")
+    const navigate = useNavigate()
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [mobile, setMobile] = useState('');
+    const [password, setPassword] = useState('');
+    const [referralBy, setReferralBy] = useState('');
 
-    const data = {
-        name,
-        email,
-        mobile,
-        refreferralBy,
-        password
-    }
-    const signHandler = async (e) => {
-        e.preventDefault()
+    const handleRegistration = async (e) => {
+        e.preventDefault();
+
+        const data = {
+            name,
+            email,
+            mobile,
+            password,
+            referralBy,
+        };
+
         try {
-            const response = await axios.post('http://localhost:6009/api/v1/users/signup', data)
+            const response = await axios.post('http://localhost:6009/api/v1/users/register', data);
             alert(response.data.message);
 
-            if (response.data.data.success) {
-                console.log(response.data.data.id)
-                redirect("/")
+            if (response.data.success) {
+                navigate('/login');
             }
         } catch (error) {
-            console.log(error)
+            alert(error.response.data.message);
+            console.error("registration failed")
         }
+    };
 
-    }
     return (
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -104,7 +107,7 @@ const Signup = () => {
                         </label>
                         <div className="mt-2">
                             <input
-                                value={refreferralBy}
+                                value={referralBy}
                                 onChange={(e) => setReferralBy(e.target.value)}
                                 name="referralBy"
                                 type="number"
@@ -123,10 +126,9 @@ const Signup = () => {
                         <div className="mt-2">
                             <input
                                 onChange={(e) => setPassword(e.target.value)}
-                                value={refreferralBy}
+                                value={password}
                                 name="password"
                                 type="password"
-                                autoComplete="current-password"
                                 required
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
@@ -135,7 +137,7 @@ const Signup = () => {
 
                     <div>
                         <button
-                            onClick={signHandler}
+                            onClick={handleRegistration}
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-orange-700 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >

@@ -1,10 +1,12 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/logo.png"
 import { CiWallet } from "react-icons/ci";
-// eslint-disable-next-line react/prop-types
-export default function Header({ currentUser }) {
-    console.log(currentUser)
+import { useSelector } from "react-redux";
 
+// eslint-disable-next-line react/prop-types
+export default function Header() {
+    const userState = useSelector(state => state.user);
+    const activeStatus = userState.status;
     return (
         <header className="shadow sticky z-50 top-0">
             <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
@@ -18,18 +20,18 @@ export default function Header({ currentUser }) {
                     </Link>
                     <div className="flex items-center lg:order-2">
                         {
-                            currentUser ? <div className="flex flex-row">
+                            activeStatus ? <div className="flex flex-row">
                                 <Link
                                     to="/profile"
                                     className="text-orange-700 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
                                 >
-                                    Adarsh Srivastav
+                                    {userState.userData.name}
                                 </Link>
                                 <div className="flex flex-row">
                                     <span className="text-orange-700 text-3xl">
                                         <CiWallet />
                                     </span>
-                                    <span className="pt-1">: ₹ 20</span>
+                                    <span className="pt-1">: ₹ {userState.userData.walletBalance}</span>
                                 </div>
                             </div>
                                 :

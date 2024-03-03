@@ -1,5 +1,5 @@
 
-import axios from "axios";
+
 import { useState } from "react";
 import Modal from "react-modal";
 import { httpAuth } from "..";

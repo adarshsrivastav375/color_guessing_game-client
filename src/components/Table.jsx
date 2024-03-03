@@ -1,5 +1,6 @@
 
 
+// eslint-disable-next-line react/prop-types
 const Table = ({ bets, pagination, callback, currentPage }) => {
     return (
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

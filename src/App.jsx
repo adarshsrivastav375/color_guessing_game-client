@@ -9,9 +9,15 @@ import Parity from "./components/Parity";
 import Bcon from "./components/Bcon";
 import Sapre from "./components/Sapre";
 import Emred from "./components/Emred";
-import Details from "./pages/profile/Details";
 import Recharge from "./pages/profile/Recharge";
 import Withdraw from "./pages/profile/Withdraw";
+import BankDetails from "./pages/profile/BankDetails";
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { httpAuth } from ".";
+import { login, logout } from "./redux/authSlice";
+import UpdatePassword from "./pages/profile/UpdatePassword";
+import Transactions from "./pages/profile/Transactions";
 
 import {
   createBrowserRouter,
@@ -21,6 +27,24 @@ import {
 
 
 function App() {
+  const dispatch = useDispatch();
+  const getCurrentUser = async () => {
+    try {
+      const response = await httpAuth.get("/api/v1/users/current-user");
+      const userData = response.data.data;
+      if (userData) {
+        dispatch(login(userData));
+
+      } else {
+        dispatch(logout())
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  useEffect(() => {
+    getCurrentUser();
+  }, [])
 
   const currentUser = true;
   const ProtectedRout = ({ children }) => {
@@ -46,20 +70,24 @@ function App() {
           </ProtectedRout>,
           children: [
             {
-              path: "/profile",
-              element: <Details currentUser={currentUser} />
-            },
-            {
               path: "/profile/recharge",
-              element: <Recharge currentUser={currentUser} />
+              element: <Recharge />
             },
             {
               path: "/profile/withdraw",
-              element: <Withdraw currentUser={currentUser} />
+              element: <Withdraw />
             },
             {
-              path: "/profile/recharge",
-              element: <Recharge currentUser={currentUser} />
+              path: "/profile/update-bank-details",
+              element: <BankDetails />
+            },
+            {
+              path: "/profile/change-password",
+              element: <UpdatePassword />
+            },
+            {
+              path: "/profile/transactions",
+              element: <Transactions />
             },
 
           ]

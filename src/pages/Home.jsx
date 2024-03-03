@@ -5,6 +5,8 @@ const bg = "https://images.pexels.com/photos/187333/pexels-photo-187333.jpeg?aut
 Link
 
 const Home = () => {
+
+    
     return (
         <div className="relative h-screen bg-transparent" style={{
             background: `url(${bg})`,
