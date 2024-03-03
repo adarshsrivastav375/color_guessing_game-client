@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { httpAuth } from "../..";
+import { useNavigate } from "react-router-dom"
 
 function BankDetails() {
+  const navigate = useNavigate()
   const [bankName, setBankName] = useState('');
   const [acNumber, setAcNumber] = useState('');
   const [ifsc, setIfsc] = useState('');
@@ -15,11 +17,12 @@ function BankDetails() {
     }
     try {
       const response = await httpAuth.post("/api/v1/users/add-bank-details", data);
-     
+
       alert(response.data.message);
       setBankName("")
       setAcNumber("")
       setIfsc("")
+      navigate("/profile")
     } catch (error) {
       console.error("Error fetching data:", error);
       alert(error.response.data.message);

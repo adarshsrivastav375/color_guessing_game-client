@@ -13,9 +13,8 @@ const Transactions = () => {
 
     useEffect(() => {
         setUser(userData);
-        console.log(user.bankDetails)
         setLoading(false);
-    }, [user.bankDetails, userData]);
+    }, [userData]);
 
     useEffect(() => {
         const fetchTransData = async () => {
@@ -38,9 +37,9 @@ const Transactions = () => {
     }
     return (
 
-        <div className="overflow-x-auto shadow-md sm:rounded-lg">
+        <div className="flex flex-col gap-10 ">
             <div>
-                <h1>Bank Details</h1>
+                <h1 className="text-2xl text-orange-700">Bank Details</h1>
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -56,26 +55,26 @@ const Transactions = () => {
                         </tr>
                     </thead>
 
-                    {/* <tbody>
+                    <tbody>
                         <tr className="bg-whit border-b-2 ">
                             <td className="px-6 py-2">
-                                {user.bankDetails.bankName}
+                                {user.bankDetails?.bankName}
                             </td>
                             <td className="px-6 py-2">
-                                {user.bankDetails.acNumber}
+                                {user.bankDetails?.acNumber}
                             </td>
                             <td className="px-6 py-2">
-                                {user.bankDetails.ifsc}
+                                {user.bankDetails?.ifsc}
                             </td>
 
                         </tr>
 
-                    </tbody> */}
+                    </tbody>
                 </table>
 
             </div>
             <div>
-                <h1>Transactions</h1>
+                <h1 className="text-2xl text-orange-700">Transactions</h1>
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -118,7 +117,7 @@ const Transactions = () => {
 
 
 
-        </div>
+        </div >
     )
 }
 

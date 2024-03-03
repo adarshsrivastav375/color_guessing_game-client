@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom"
 const bg = "https://images.pexels.com/photos/187333/pexels-photo-187333.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
 
@@ -5,7 +6,6 @@ const bg = "https://images.pexels.com/photos/187333/pexels-photo-187333.jpeg?aut
 Link
 
 const Home = () => {
-
     
     return (
         <div className="relative h-screen bg-transparent" style={{

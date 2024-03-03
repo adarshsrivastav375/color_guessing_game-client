@@ -49,7 +49,7 @@ function App() {
   const currentUser = true;
   const ProtectedRout = ({ children }) => {
     if (!currentUser) {
-      return <Navigate to='/login' />
+      return <Navigate to='/' />
     }
     return children;
   }
@@ -86,7 +86,7 @@ function App() {
               element: <UpdatePassword />
             },
             {
-              path: "/profile/transactions",
+              path: "/profile",
               element: <Transactions />
             },
 
