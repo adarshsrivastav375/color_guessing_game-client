@@ -8,7 +8,7 @@ const ActiveContest = ({ game, callback }) => {
 
     useEffect(() => {
 
-        const targetTime = dayjs(game.expiredAt).valueOf(); 
+        const targetTime = dayjs(game.expiredAt).valueOf();
 
         const timerFunction = () => {
             const currentTime = dayjs().valueOf();
@@ -30,14 +30,8 @@ const ActiveContest = ({ game, callback }) => {
             }
         };
 
-        // Run the timer every second (adjust as needed)
         const timerInterval = setInterval(timerFunction, 1000);
-
-        // Initial call to log the initial status
         timerFunction();
-
-
-
     }, []);
     return (
         <div>
