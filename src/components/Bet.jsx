@@ -47,15 +47,15 @@ const Bet = ({ game, callback }) => {
         setAmount(amount + 5)
     }
     const decreament = () => {
-        if (amount >= 5) {
+        if (amount > 5) {
             setAmount(Number(amount) - 5)
         }
 
     }
 
     const handleConfirm = async () => {
-        if (amount > balance) {
-            alert(" Wallet balance is low")
+        if (amount > balance || amount == 0) {
+            alert("Invalid Amount")
             closeModal();
             setAmount(5)
             return;
@@ -103,11 +103,11 @@ const Bet = ({ game, callback }) => {
                         <h2>Enter Amount</h2>
 
                         <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1 border border-red-600">
-                            <button className="bg-orange-700 text-white hover:bg-orange-400 h-full w-20 rounded-l cursor-pointer" onClick={decreament}>
+                            <button className="bg-orange-700 text-white hover:bg-orange-600 h-full w-20 rounded-l cursor-pointer" onClick={decreament}>
                                 <span className="m-auto text-2xl font-thin">−</span>
                             </button>
                             <input type="number" className="outline-none text-center w-full bg-white font-semibold text-md  md:text-basecursor-default flex items-center text-orange-700 " name="amount" value={amount} onChange={handleAmountChange} />
-                            <button className="bg-orange-700 text-white hover:bg-orange-400 h-full w-20 rounded-r cursor-pointer" onClick={increament}>
+                            <button className="bg-orange-700 text-white hover:bg-orange-600 h-full w-20 rounded-r cursor-pointer" onClick={increament}>
                                 <span className="m-auto text-2xl font-thin">+</span>
                             </button>
                         </div>
