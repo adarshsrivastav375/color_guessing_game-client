@@ -1,7 +1,7 @@
 import logo from "../assets/logo.png"
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import { httpAuth } from "..";
 import { useNavigate } from "react-router-dom";
 
 
@@ -27,7 +27,7 @@ const Signup = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:6009/api/v1/users/register', data);
+            const response = await httpAuth.post('/api/v1/users/register', data);
             alert(response.data.message);
 
             if (response.data.success) {

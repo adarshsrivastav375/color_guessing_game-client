@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import dayjs from "dayjs"
 
@@ -7,7 +8,7 @@ const ActiveContest = ({ game, callback }) => {
 
     useEffect(() => {
 
-        const targetTime = dayjs(game.expiredAt).valueOf(); // Get timestamp in milliseconds
+        const targetTime = dayjs(game.expiredAt).valueOf(); 
 
         const timerFunction = () => {
             const currentTime = dayjs().valueOf();

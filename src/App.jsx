@@ -13,12 +13,11 @@ import Recharge from "./pages/profile/Recharge";
 import Withdraw from "./pages/profile/Withdraw";
 import BankDetails from "./pages/profile/BankDetails";
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { httpAuth } from ".";
 import { login, logout } from "./redux/authSlice";
 import UpdatePassword from "./pages/profile/UpdatePassword";
 import Transactions from "./pages/profile/Transactions";
-
 import {
   createBrowserRouter,
   Navigate,
@@ -28,13 +27,14 @@ import {
 
 function App() {
   const dispatch = useDispatch();
-  const getCurrentUser = async () => {
+  const [user, setUser] = useState({})
+  const getuser = async () => {
     try {
       const response = await httpAuth.get("/api/v1/users/current-user");
       const userData = response.data.data;
+      setUser(userData);
       if (userData) {
         dispatch(login(userData));
-
       } else {
         dispatch(logout())
       }
@@ -43,12 +43,10 @@ function App() {
     }
   };
   useEffect(() => {
-    getCurrentUser();
+    getuser();
   }, [])
-
-  const currentUser = true;
   const ProtectedRout = ({ children }) => {
-    if (!currentUser) {
+    if (!user) {
       return <Navigate to='/' />
     }
     return children;
@@ -56,17 +54,17 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: <Layout currentUser={currentUser} />,
+      element: <Layout user={user} />,
       children: [
         {
           path: "/",
-          element: <Home currentUser={currentUser} />
+          element: <Home user={user} />
         },
 
         {
           path: '/profile',
           element: <ProtectedRout>
-            <Profile currentUser={currentUser} />
+            <Profile user={user} />
           </ProtectedRout>,
           children: [
             {
@@ -96,24 +94,24 @@ function App() {
         {
           path: "/contest",
           element: <ProtectedRout>
-            <Contest currentUser={currentUser} />
+            <Contest user={user} />
           </ProtectedRout>,
           children: [
             {
               path: "/contest",
-              element: <Parity currentUser={currentUser} />
+              element: <Parity />
             },
             {
               path: "/contest/bcone",
-              element: <Bcon currentUser={currentUser} />
+              element: <Bcon />
             },
             {
               path: "/contest/sapre",
-              element: <Sapre currentUser={currentUser} />
+              element: <Sapre />
             },
             {
               path: "/contest/emred",
-              element: <Emred currentUser={currentUser} />
+              element: <Emred />
             },
           ]
         }

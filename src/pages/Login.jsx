@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png"
-import axios from "axios";
+import logo from "../assets/logo.png";
 import { useState } from "react";
 import { httpAuth } from "..";
 
@@ -17,14 +16,15 @@ const Login = () => {
             password
         };
         try {
-            const response = await axios.post('http://localhost:6009/api/v1/users/login', data)
+            const response = await httpAuth.post('api/v1/users/login', data)
             if (response.data.success) {
-                localStorage.setItem('accessToken',await response.data.data.accessToken);
-                localStorage.setItem('refreshToken',await response.data.data.refreshToken);
+                localStorage.setItem('accessToken', await response.data.data.accessToken);
+                localStorage.setItem('refreshToken', await response.data.data.refreshToken);
                 httpAuth.defaults.headers["Authorization"] = JSON.stringify(response.data.data.accessToken);
                 navigateTo("/");
             }
         } catch (error) {
+            alert(error.response.data.message);
             console.log(error)
         }
 

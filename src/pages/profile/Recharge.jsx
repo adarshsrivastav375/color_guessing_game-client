@@ -2,7 +2,9 @@
 import { useState } from "react";
 import { httpAuth } from "../../index"
 import QR from "../../assets/QR.jpg"
+import { useNavigate } from "react-router-dom";
 const Recharge = () => {
+    const navigate = useNavigate();
     const [transId, setTransId] = useState("")
     const [amount, setAmount] = useState("")
     const data = {
@@ -17,6 +19,7 @@ const Recharge = () => {
             alert(response.data.message);
             setTransId("")
             setAmount("")
+            navigate("/profile")
         } catch (error) {
             alert(error.response.data.message);
             console.error("Error fetching data:", error);

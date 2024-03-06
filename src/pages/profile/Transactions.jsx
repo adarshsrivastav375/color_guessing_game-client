@@ -9,7 +9,6 @@ const Transactions = () => {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState({});
     const [transactions, setTransactions] = useState([])
-    console.log(userData)
 
     useEffect(() => {
         setUser(userData);
